@@ -24,7 +24,13 @@ Search and replace these placeholders:
 If you have a personal photo, place it in `assets/` and replace
 `assets/profile.svg` in `index.html` with your image path.
 
-## Deploy to GitHub Pages
+## Current deployment
+
+This copy is deployed at `https://flypde.github.io` from the repository
+`flypde/flypde.github.io`. Because that repository was already configured to
+publish from `gh-pages`, the live site is updated from the `gh-pages` branch.
+
+## Deploy to a fresh GitHub Pages user site
 
 1. Create a public GitHub repository named `<github-username>.github.io`.
 2. Upload or push all files in this folder to the `main` branch.
