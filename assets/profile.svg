@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Profile illustration placeholder</title>
+  <desc id="desc">A simple profile illustration placeholder that can be replaced with a personal photo.</desc>
+  <rect width="720" height="900" fill="#f7f8f4"/>
+  <path d="M0 0h720v246H0z" fill="#0f766e"/>
+  <path d="M0 654h720v246H0z" fill="#171717"/>
+  <circle cx="548" cy="180" r="82" fill="#e6b155"/>
+  <path d="M118 210c70-74 170-112 300-102 92 7 164 38 216 92v178H118V210Z" fill="#2357c6"/>
+  <path d="M202 292c0-105 78-184 178-184s178 79 178 184v76c0 112-80 202-178 202s-178-90-178-202v-76Z" fill="#f2c9a7"/>
+  <path d="M203 304c42-106 120-163 234-172 82 28 130 86 145 174-77-15-137-45-180-90-38 52-104 82-199 88Z" fill="#171717"/>
+  <path d="M210 362c-44 0-75 32-75 77s31 77 75 77V362Zm340 0c44 0 75 32 75 77s-31 77-75 77V362Z" fill="#f2c9a7"/>
+  <path d="M273 380c22-18 49-18 72 0M423 380c22-18 49-18 72 0" fill="none" stroke="#171717" stroke-width="18" stroke-linecap="round"/>
+  <path d="M367 398c-12 38-20 68-24 92 18 10 39 10 62 0" fill="none" stroke="#c77d61" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M311 526c43 32 91 32 137 0" fill="none" stroke="#171717" stroke-width="16" stroke-linecap="round"/>
+  <path d="M164 724c26-96 105-152 216-152s190 56 216 152v176H164V724Z" fill="#d95845"/>
+  <path d="M263 616h234l-117 86-117-86Z" fill="#f7f8f4"/>
+  <path d="M164 768h432v132H164z" fill="#171717" opacity=".14"/>
+  <path d="M108 665c71 60 130 84 177 72 37-9 68-37 95-84 31 51 67 81 108 90 47 10 102-16 165-78" fill="none" stroke="#f7f8f4" stroke-width="22" stroke-linecap="round"/>
+</svg>
