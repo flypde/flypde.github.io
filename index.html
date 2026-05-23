@@ -15,8 +15,656 @@
     />
     <meta property="og:type" content="website" />
     <title>Your Name - Personal Homepage</title>
-    <link rel="icon" href="assets/profile.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css" />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f8f4;
+        --surface: #ffffff;
+        --surface-strong: #ffffff;
+        --ink: #171717;
+        --muted: #5f6762;
+        --line: #d7dfd8;
+        --teal: #0f766e;
+        --blue: #2357c6;
+        --coral: #d95845;
+        --gold: #c48420;
+        --shadow: 0 24px 70px rgba(23, 23, 23, 0.11);
+        --radius: 8px;
+        --max: 1120px;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #11110f;
+        --surface: #191916;
+        --surface-strong: #22221e;
+        --ink: #f4efe5;
+        --muted: #b8b0a4;
+        --line: #343229;
+        --teal: #5ac4b6;
+        --blue: #83a8ff;
+        --coral: #ff8979;
+        --gold: #e4b358;
+        --shadow: 0 26px 80px rgba(0, 0, 0, 0.36);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          linear-gradient(90deg, rgba(15, 118, 110, 0.06) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(35, 87, 198, 0.04) 1px, transparent 1px),
+          var(--bg);
+        background-size: 54px 54px;
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      svg {
+        display: block;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 30;
+        padding: 10px 14px;
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: var(--bg);
+        transform: translateY(-150%);
+        transition: transform 180ms ease;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 20px;
+        align-items: center;
+        width: min(var(--max), calc(100% - 32px));
+        margin: 16px auto 0;
+        padding: 10px;
+        border: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+        border-radius: var(--radius);
+        background: color-mix(in srgb, var(--surface) 86%, transparent);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 10px 30px rgba(23, 23, 23, 0.06);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        font-weight: 760;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--bg);
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .nav-links a {
+        padding: 8px 12px;
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.95rem;
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        background: color-mix(in srgb, var(--teal) 12%, transparent);
+        color: var(--ink);
+      }
+
+      .icon-button {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--surface-strong);
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      svg path,
+      svg circle,
+      svg rect {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .hero,
+      .section,
+      .intro-band,
+      .notes-band,
+      .contact,
+      .site-footer {
+        width: min(var(--max), calc(100% - 32px));
+        margin-inline: auto;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.72fr);
+        gap: clamp(36px, 6vw, 76px);
+        align-items: center;
+        min-height: min(760px, calc(100svh - 54px));
+        padding: clamp(72px, 9vw, 112px) 0 clamp(48px, 7vw, 72px);
+      }
+
+      .hero-copy {
+        max-width: 720px;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--teal);
+        font-size: 0.82rem;
+        font-weight: 760;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 11ch;
+        margin-bottom: 24px;
+        font-size: clamp(3.5rem, 8vw, 6.8rem);
+        line-height: 0.95;
+      }
+
+      h1 span {
+        color: var(--teal);
+      }
+
+      h2 {
+        margin-bottom: 0;
+        font-size: clamp(2rem, 4.6vw, 3.7rem);
+        line-height: 1.03;
+      }
+
+      .hero-lede,
+      .intro-grid > p,
+      .work-card p {
+        color: var(--muted);
+      }
+
+      .hero-lede {
+        max-width: 680px;
+        margin-bottom: 34px;
+        font-size: clamp(1.08rem, 2vw, 1.3rem);
+      }
+
+      .hero-actions,
+      .contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 46px;
+        padding: 12px 18px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-strong);
+        color: var(--ink);
+        font-weight: 720;
+        cursor: pointer;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(23, 23, 23, 0.1);
+      }
+
+      .button.primary {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: var(--bg);
+      }
+
+      .button svg {
+        width: 19px;
+        height: 19px;
+        flex: 0 0 auto;
+      }
+
+      .profile-visual {
+        position: relative;
+        margin: 0;
+        justify-self: end;
+        width: min(100%, 390px);
+      }
+
+      .profile-visual::before {
+        content: "";
+        position: absolute;
+        inset: 18px -18px -18px 18px;
+        z-index: -1;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+
+      .profile-art {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-strong);
+        box-shadow: var(--shadow);
+      }
+
+      .profile-art * {
+        stroke: none;
+      }
+
+      .profile-art .line {
+        fill: none;
+        stroke: #171717;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .profile-visual figcaption {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .profile-visual figcaption span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding-left: 14px;
+        border-left: 3px solid var(--gold);
+      }
+
+      .intro-band,
+      .notes-band,
+      .contact {
+        padding: clamp(48px, 8vw, 86px) 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section {
+        padding: clamp(54px, 8vw, 94px) 0;
+      }
+
+      .section-heading {
+        max-width: 680px;
+        margin-bottom: 28px;
+      }
+
+      .intro-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+        gap: clamp(28px, 6vw, 76px);
+        align-items: start;
+      }
+
+      .intro-grid > p {
+        max-width: 680px;
+        margin: 0;
+        font-size: clamp(1.05rem, 2vw, 1.28rem);
+      }
+
+      .quick-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .quick-list li,
+      .work-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: color-mix(in srgb, var(--surface) 88%, transparent);
+      }
+
+      .quick-list li {
+        min-height: 116px;
+        padding: 18px;
+      }
+
+      .quick-list strong {
+        display: block;
+        color: var(--coral);
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        line-height: 1;
+      }
+
+      .quick-list span {
+        display: block;
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .work-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .work-card {
+        display: flex;
+        min-height: 300px;
+        flex-direction: column;
+        padding: 24px;
+      }
+
+      .work-card-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 26px;
+      }
+
+      .tag,
+      .year {
+        font-size: 0.85rem;
+      }
+
+      .tag {
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--teal) 14%, transparent);
+        color: var(--teal);
+        font-weight: 720;
+      }
+
+      .tag.accent {
+        background: color-mix(in srgb, var(--blue) 14%, transparent);
+        color: var(--blue);
+      }
+
+      .tag.warm {
+        background: color-mix(in srgb, var(--gold) 18%, transparent);
+        color: var(--gold);
+      }
+
+      .year {
+        color: var(--muted);
+      }
+
+      .work-card h3 {
+        margin-bottom: 12px;
+        font-size: 1.45rem;
+        line-height: 1.2;
+      }
+
+      .work-card a {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        width: fit-content;
+        margin-top: auto;
+        color: var(--teal);
+        font-weight: 740;
+      }
+
+      .work-card a svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .notes-band {
+        display: grid;
+        grid-template-columns: minmax(240px, 0.65fr) minmax(0, 1fr);
+        gap: clamp(26px, 6vw, 78px);
+        align-items: start;
+      }
+
+      .note-list {
+        display: grid;
+        border-top: 1px solid var(--line);
+      }
+
+      .note-list a {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        align-items: center;
+        min-height: 76px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .note-list span {
+        font-weight: 720;
+      }
+
+      .note-list time {
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .contact {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+      }
+
+      .contact h2 {
+        max-width: 700px;
+      }
+
+      .site-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+        padding: 28px 0 42px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .site-footer p {
+        margin: 0;
+      }
+
+      .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 40;
+        max-width: calc(100vw - 36px);
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--ink);
+        color: var(--bg);
+        box-shadow: var(--shadow);
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 180ms ease, transform 180ms ease;
+        pointer-events: none;
+      }
+
+      .toast.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      :focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--teal) 55%, transparent);
+        outline-offset: 3px;
+      }
+
+      @media (max-width: 860px) {
+        .site-header {
+          grid-template-columns: 1fr auto;
+        }
+
+        .nav-links {
+          grid-column: 1 / -1;
+          justify-content: flex-start;
+          order: 3;
+        }
+
+        .hero,
+        .intro-grid,
+        .notes-band,
+        .contact {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 64px;
+        }
+
+        .profile-visual {
+          justify-self: stretch;
+          width: min(100%, 430px);
+        }
+
+        .work-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        body {
+          background-size: 42px 42px;
+        }
+
+        .site-header,
+        .hero,
+        .section,
+        .intro-band,
+        .notes-band,
+        .contact,
+        .site-footer {
+          width: min(100% - 24px, var(--max));
+        }
+
+        .brand span:last-child {
+          max-width: 10ch;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        h1 {
+          max-width: 9ch;
+        }
+
+        .hero-actions,
+        .contact-actions,
+        .site-footer {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .quick-list {
+          grid-template-columns: 1fr;
+        }
+
+        .quick-list li {
+          min-height: auto;
+        }
+
+        .note-list a {
+          grid-template-columns: 1fr;
+          gap: 6px;
+        }
+
+        .social-links {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -36,9 +684,7 @@
 
       <button class="icon-button theme-toggle" type="button" aria-label="Switch color theme">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M12 3.5v2.2M12 18.3v2.2M5.7 5.7l1.6 1.6M16.7 16.7l1.6 1.6M3.5 12h2.2M18.3 12h2.2M5.7 18.3l1.6-1.6M16.7 7.3l1.6-1.6"
-          />
+          <path d="M12 3.5v2.2M12 18.3v2.2M5.7 5.7l1.6 1.6M16.7 16.7l1.6 1.6M3.5 12h2.2M18.3 12h2.2M5.7 18.3l1.6-1.6M16.7 7.3l1.6-1.6" />
           <circle cx="12" cy="12" r="4.2" />
         </svg>
       </button>
@@ -57,23 +703,36 @@
 
           <div class="hero-actions" aria-label="Primary actions">
             <a class="button primary" href="#work">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 7.5h16M4 12h10M4 16.5h16" />
-              </svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h16M4 12h10M4 16.5h16" /></svg>
               View Work
             </a>
             <a class="button secondary" href="#contact">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 6.5h14v11H5z" />
-                <path d="m5 8 7 5 7-5" />
-              </svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5h14v11H5z" /><path d="m5 8 7 5 7-5" /></svg>
               Contact
             </a>
           </div>
         </div>
 
         <figure class="profile-visual" aria-label="Personal profile visual">
-          <img src="assets/profile.svg" alt="Illustrated profile placeholder" />
+          <svg class="profile-art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="profile-title profile-desc">
+            <title id="profile-title">Profile illustration placeholder</title>
+            <desc id="profile-desc">A simple profile illustration placeholder that can be replaced with a personal photo.</desc>
+            <rect width="720" height="900" fill="#f7f8f4"/>
+            <path d="M0 0h720v246H0z" fill="#0f766e"/>
+            <path d="M0 654h720v246H0z" fill="#171717"/>
+            <circle cx="548" cy="180" r="82" fill="#e6b155"/>
+            <path d="M118 210c70-74 170-112 300-102 92 7 164 38 216 92v178H118V210Z" fill="#2357c6"/>
+            <path d="M202 292c0-105 78-184 178-184s178 79 178 184v76c0 112-80 202-178 202s-178-90-178-202v-76Z" fill="#f2c9a7"/>
+            <path d="M203 304c42-106 120-163 234-172 82 28 130 86 145 174-77-15-137-45-180-90-38 52-104 82-199 88Z" fill="#171717"/>
+            <path d="M210 362c-44 0-75 32-75 77s31 77 75 77V362Zm340 0c44 0 75 32 75 77s-31 77-75 77V362Z" fill="#f2c9a7"/>
+            <path class="line" d="M273 380c22-18 49-18 72 0M423 380c22-18 49-18 72 0" stroke-width="18"/>
+            <path d="M367 398c-12 38-20 68-24 92 18 10 39 10 62 0" fill="none" stroke="#c77d61" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="line" d="M311 526c43 32 91 32 137 0" stroke-width="16"/>
+            <path d="M164 724c26-96 105-152 216-152s190 56 216 152v176H164V724Z" fill="#d95845"/>
+            <path d="M263 616h234l-117 86-117-86Z" fill="#f7f8f4"/>
+            <path d="M164 768h432v132H164z" fill="#171717" opacity=".14"/>
+            <path d="M108 665c71 60 130 84 177 72 37-9 68-37 95-84 31 51 67 81 108 90 47 10 102-16 165-78" fill="none" stroke="#f7f8f4" stroke-width="22" stroke-linecap="round"/>
+          </svg>
           <figcaption>
             <span>Based in Your City</span>
             <span>Focus: product, design, research, or engineering</span>
@@ -108,57 +767,24 @@
 
         <div class="work-grid">
           <article class="work-card">
-            <div class="work-card-top">
-              <span class="tag">Web</span>
-              <span class="year">2026</span>
-            </div>
+            <div class="work-card-top"><span class="tag">Web</span><span class="year">2026</span></div>
             <h3>Project One</h3>
-            <p>
-              A concise description of the problem, your role, and the outcome.
-              Link this card to a case study, GitHub repo, or live demo.
-            </p>
-            <a href="#" aria-label="View Project One">
-              View details
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </a>
+            <p>A concise description of the problem, your role, and the outcome. Link this card to a case study, GitHub repo, or live demo.</p>
+            <a href="#" aria-label="View Project One">View details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>
           </article>
 
           <article class="work-card">
-            <div class="work-card-top">
-              <span class="tag accent">Product</span>
-              <span class="year">2025</span>
-            </div>
+            <div class="work-card-top"><span class="tag accent">Product</span><span class="year">2025</span></div>
             <h3>Project Two</h3>
-            <p>
-              Use this slot for a product, research, design, engineering,
-              writing, open-source, or creative project.
-            </p>
-            <a href="#" aria-label="View Project Two">
-              View details
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </a>
+            <p>Use this slot for a product, research, design, engineering, writing, open-source, or creative project.</p>
+            <a href="#" aria-label="View Project Two">View details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>
           </article>
 
           <article class="work-card">
-            <div class="work-card-top">
-              <span class="tag warm">Writing</span>
-              <span class="year">2024</span>
-            </div>
+            <div class="work-card-top"><span class="tag warm">Writing</span><span class="year">2024</span></div>
             <h3>Project Three</h3>
-            <p>
-              Keep this short and specific. The best project cards make the
-              value obvious without asking visitors to decode jargon.
-            </p>
-            <a href="#" aria-label="View Project Three">
-              View details
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </a>
+            <p>Keep this short and specific. The best project cards make the value obvious without asking visitors to decode jargon.</p>
+            <a href="#" aria-label="View Project Three">View details <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>
           </article>
         </div>
       </section>
@@ -170,18 +796,9 @@
         </div>
 
         <div class="note-list">
-          <a href="#">
-            <span>How to turn a side project into a portfolio piece</span>
-            <time datetime="2026-05-23">May 2026</time>
-          </a>
-          <a href="#">
-            <span>A calmer workflow for doing better work</span>
-            <time datetime="2026-04-18">Apr 2026</time>
-          </a>
-          <a href="#">
-            <span>Reading, practice, and the long game</span>
-            <time datetime="2026-03-02">Mar 2026</time>
-          </a>
+          <a href="#"><span>How to turn a side project into a portfolio piece</span><time datetime="2026-05-23">May 2026</time></a>
+          <a href="#"><span>A calmer workflow for doing better work</span><time datetime="2026-04-18">Apr 2026</time></a>
+          <a href="#"><span>Reading, practice, and the long game</span><time datetime="2026-03-02">Mar 2026</time></a>
         </div>
       </section>
 
@@ -192,17 +809,11 @@
         </div>
         <div class="contact-actions">
           <a class="button primary" href="mailto:your.email@example.com">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 6.5h14v11H5z" />
-              <path d="m5 8 7 5 7-5" />
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5h14v11H5z" /><path d="m5 8 7 5 7-5" /></svg>
             your.email@example.com
           </a>
           <button class="button secondary" type="button" data-copy="your.email@example.com">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="8" y="8" width="10" height="10" rx="1.5" />
-              <path d="M6 14H5.5A1.5 1.5 0 0 1 4 12.5v-7A1.5 1.5 0 0 1 5.5 4h7A1.5 1.5 0 0 1 14 5.5V6" />
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="10" height="10" rx="1.5" /><path d="M6 14H5.5A1.5 1.5 0 0 1 4 12.5v-7A1.5 1.5 0 0 1 5.5 4h7A1.5 1.5 0 0 1 14 5.5V6" /></svg>
             Copy email
           </button>
         </div>
@@ -220,6 +831,56 @@
     </footer>
 
     <div class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-    <script src="script.js"></script>
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.querySelector(".theme-toggle");
+      const toast = document.querySelector(".toast");
+      const year = document.querySelector("#year");
+
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+
+      root.dataset.theme = initialTheme;
+      year.textContent = new Date().getFullYear();
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        localStorage.setItem("theme", theme);
+        themeToggle.setAttribute(
+          "aria-label",
+          theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+        );
+      }
+
+      setTheme(initialTheme);
+
+      themeToggle.addEventListener("click", () => {
+        const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+        setTheme(nextTheme);
+      });
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 1800);
+      }
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const value = button.getAttribute("data-copy");
+
+          try {
+            await navigator.clipboard.writeText(value);
+            showToast("Email copied");
+          } catch {
+            showToast(value);
+          }
+        });
+      });
+    </script>
   </body>
 </html>
