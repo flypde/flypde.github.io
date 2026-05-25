@@ -362,6 +362,28 @@
         color: var(--muted);
       }
 
+      .math-quote {
+        margin: 18px 0 0;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .math-quote blockquote {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.05rem, 2vw, 1.26rem);
+        line-height: 1.45;
+        color: var(--ink);
+      }
+
+      .math-quote figcaption {
+        margin-top: 10px;
+        color: var(--teal);
+        font-size: 0.92rem;
+        font-weight: 760;
+      }
+
       .equation {
         font-family: Georgia, "Times New Roman", serif;
         font-size: clamp(1.35rem, 3vw, 2.25rem);
@@ -829,6 +851,12 @@
                 problem, advisor, and the methods you use.
               </p>
             </div>
+            <figure class="math-quote">
+              <blockquote>
+                "If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is."
+              </blockquote>
+              <figcaption>&mdash; John von Neumann</figcaption>
+            </figure>
           </div>
         </figure>
       </section>
