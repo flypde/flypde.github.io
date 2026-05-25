@@ -363,17 +363,24 @@
       }
 
       .math-quote {
-        margin: 18px 0 0;
-        padding-top: 16px;
-        border-top: 1px solid var(--line);
+        position: relative;
+        margin: 22px 0 0;
+        padding: 18px 0 18px 20px;
+        border-left: 4px solid var(--teal);
+        background: linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--teal) 10%, transparent),
+          transparent 78%
+        );
         color: var(--muted);
       }
 
       .math-quote blockquote {
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(1.05rem, 2vw, 1.26rem);
-        line-height: 1.45;
+        font-size: clamp(1.24rem, 2.4vw, 1.66rem);
+        font-weight: 650;
+        line-height: 1.36;
         color: var(--ink);
       }
 
@@ -844,6 +851,12 @@
             <div class="equation">
               &Vert;u(t)&Vert;<sub>H<sup>1</sup></sub> &le; C(1+t)<sup>&alpha;</sup>
             </div>
+            <figure class="math-quote">
+              <blockquote>
+                "If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is."
+              </blockquote>
+              <figcaption>&mdash; John von Neumann</figcaption>
+            </figure>
             <div class="proof-card">
               <h3>Research snapshot</h3>
               <p>
@@ -851,12 +864,6 @@
                 problem, advisor, and the methods you use.
               </p>
             </div>
-            <figure class="math-quote">
-              <blockquote>
-                "If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is."
-              </blockquote>
-              <figcaption>&mdash; John von Neumann</figcaption>
-            </figure>
           </div>
         </figure>
       </section>
